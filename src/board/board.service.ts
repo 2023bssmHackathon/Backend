@@ -32,24 +32,16 @@ export class BoardService {
 
   async findOne(boardId: number) {
     const data = this.BoardRepository.findOne({ where: { boardId } });
-    const modifiedCreatedAt = (await data).createdAt
-      .toISOString()
-      .replace('T', ' ')
-      .split('.')[0];
-
-    const modifiedObject = {
-      ...(await data).createdAt,
-      modifiedCreatedAt,
-    };
-    console.log(modifiedObject.modifiedCreatedAt);
-    (await data).createdAt = modifiedObject;
     return data;
   }
 
-  update(id: number, updateBoardDto: UpdateBoardDto) {
-    return `This action updates a #${id} board`;
+  async findRental() {
+    return this.BoardRepository.find({ where: { type: 'rental' } });
   }
 
+  async findSell() {
+    return this.BoardRepository.find({ where: { type: 'sell' } });
+  }
   remove(id: number) {
     return `This action removes a #${id} board`;
   }

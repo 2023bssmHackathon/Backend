@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ValidationPipe,
@@ -12,6 +11,7 @@ import {
   Res,
   InternalServerErrorException,
   BadRequestException,
+  Query,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -53,19 +53,25 @@ export class BoardController {
     throw new InternalServerErrorException();
   }
 
-  @Get()
+  @Get('/')
   findAll() {
     return this.boardService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boardService.findOne(+id);
+  @Get('/sell')
+  findSell() {
+    return this.boardService.findSell();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.update(+id, updateBoardDto);
+  @Get('/rental')
+  findRental() {
+    return this.boardService.findRental();
+    //return this.boardService.getByType(type);
+  }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    console.log(id);
+    return this.boardService.findOne(+id);
   }
 
   @Delete(':id')

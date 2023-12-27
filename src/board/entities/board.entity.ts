@@ -32,5 +32,5 @@ export class Board {
   deal: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: string;
 }
