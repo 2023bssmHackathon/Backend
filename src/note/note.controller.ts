@@ -18,11 +18,13 @@ export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
   @Post()
-  create(
+  async create(
     @Body(new ValidationPipe()) createNoteDto: CreateNoteDto,
     @Res() res: Response,
   ) {
-    this.noteService.create(createNoteDto);
+    const result = this.noteService.create(createNoteDto);
+    if ((await result) === false)
+      return res.status(404).send('board not found');
     return res.status(201).send({ create: true });
   }
 
@@ -38,7 +40,8 @@ export class NoteController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.noteService.remove(+id);
+  remove(@Param('id') id: string, @Res() res: Response) {
+    this.noteService.remove(+id);
+    return res.status(200).send({ delete: true });
   }
 }
