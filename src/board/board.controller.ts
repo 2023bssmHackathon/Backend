@@ -68,6 +68,12 @@ export class BoardController {
     return this.boardService.findRental();
     //return this.boardService.getByType(type);
   }
+
+  @Get('/search')
+  searchBoard(@Query('title') title: string) {
+    return this.boardService.searchOne(title);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     console.log(id);
