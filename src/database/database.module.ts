@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Board } from 'src/board/entities/board.entity';
+import { Note } from 'src/note/entities/note.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -13,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DB,
       synchronize: true,
-      entities: [],
+      entities: [Board, Note],
     }),
   ],
 })
