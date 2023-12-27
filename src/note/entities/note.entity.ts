@@ -1,9 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Note {
@@ -11,17 +6,17 @@ export class Note {
   noteId: number;
 
   @Column()
-  noteTitle: string;
+  boardId: number;
 
   @Column()
-  noteTo: string;
+  writer: string;
+
+  @Column()
+  boardTitle: string;
 
   @Column({ length: 300 })
   info: string;
 
   @Column()
-  writer: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
+  noteTo: string;
 }
