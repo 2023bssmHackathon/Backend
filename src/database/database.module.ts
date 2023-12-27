@@ -10,7 +10,7 @@ import { Note } from 'src/note/entities/note.entity';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
-      port: 3306,
+      port: 32696,
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DB,
