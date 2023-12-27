@@ -12,19 +12,21 @@ export class NoteService {
     private readonly NoteRepository: Repository<Note>,
   ) {}
   create(createNoteDto: CreateNoteDto) {
-    return true;
+    const parse = createNoteDto.noteTo.replace(' ', '');
+    createNoteDto.noteTo = parse;
+    console.log(createNoteDto);
+    return this.NoteRepository.save(createNoteDto);
   }
 
-  findAll() {
-    return `This action returns all note`;
+  findPostBySchoolNum(noteTo) {
+    console.log(noteTo);
+    return this.NoteRepository.find({
+      where: { noteTo },
+    });
   }
 
   findOne(id: number) {
     return `This action returns a #${id} note`;
-  }
-
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
   }
 
   remove(id: number) {

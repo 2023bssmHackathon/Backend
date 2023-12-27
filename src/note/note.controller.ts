@@ -3,37 +3,38 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ValidationPipe,
+  Res,
+  Query,
 } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
-import { UpdateNoteDto } from './dto/update-note.dto';
+import { Response } from 'express';
 
-@Controller('note')
+@Controller('/api/note')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
   @Post()
-  create(@Body(new ValidationPipe()) createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  create(
+    @Body(new ValidationPipe()) createNoteDto: CreateNoteDto,
+    @Res() res: Response,
+  ) {
+    this.noteService.create(createNoteDto);
+    return res.status(201).send({ create: true });
   }
 
-  @Get()
-  findAll() {
-    return this.noteService.findAll();
+  @Get('/')
+  findAll(@Query('number') number: string) {
+    const noSpaceNum = number.replace(' ', '');
+    return this.noteService.findPostBySchoolNum(noSpaceNum);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.noteService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.noteService.update(+id, updateNoteDto);
   }
 
   @Delete(':id')

@@ -1,9 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Note {
   @PrimaryGeneratedColumn()
   noteId: number;
+
+  @Column()
+  noteTitle: string;
 
   @Column()
   noteTo: string;
@@ -14,6 +22,6 @@ export class Note {
   @Column()
   writer: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 }
