@@ -1,7 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateNoteDto {
-  @IsNotEmpty({ message: '게시물 Id가 비었습니다.' })
   boardId: number;
 
   boardTitle: string;
