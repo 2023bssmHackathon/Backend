@@ -74,7 +74,7 @@ export class BoardService {
     });
     return data;
   }
-  remove(id: number) {
-    return `This action removes a #${id} board`;
+  remove(boardId: number) {
+    return this.BoardRepository.delete(boardId);
   }
 }
