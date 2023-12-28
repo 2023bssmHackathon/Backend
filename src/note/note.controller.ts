@@ -17,13 +17,11 @@ import { Response } from 'express';
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
-  @Post('/:id')
+  @Post()
   async create(
     @Body(new ValidationPipe()) createNoteDto: CreateNoteDto,
-    @Param('id') id: number,
     @Res() res: Response,
   ) {
-    createNoteDto.boardId = id;
     const result = this.noteService.create(createNoteDto);
     if ((await result) === false)
       return res.status(404).send('board not found');
